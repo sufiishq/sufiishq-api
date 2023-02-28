@@ -13,11 +13,11 @@ Media.init({
   },
   title: {
     type: DataTypes.STRING(255),
-    allowNull: false
+    allowNull: true
   },
   thumbnail: {
     type: DataTypes.STRING(255),
-    allowNull: false
+    allowNull: true
   },
   src: {
     type: DataTypes.STRING(255),
@@ -31,23 +31,15 @@ Media.init({
     type: DataTypes.STRING(50),
     allowNull: false
   },
-  occasionId: {
+  holderId: {
     type: DataTypes.INTEGER,
     allowNull: false
-  },
-  createdAt: {
-    type: DataTypes.BIGINT,
-    allowNull: false,
-  },
-  updatedAt: {
-    type: DataTypes.BIGINT,
-    allowNull: false,
   }
 }, {
   sequelize,
   modelName: 'Media',
   tableName: 'media',
-  timestamps: true
+  timestamps: false
 })
 
 //Media.sync()

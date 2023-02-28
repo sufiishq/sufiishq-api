@@ -48,11 +48,12 @@ router.get('/', async function(req, res) {
     let occasions = await Occasion.findAll({
       where: whereClause,
       order:[
-        ['createdAt', 'DESC']
+        ['updatedAt', 'DESC']
       ],
       offset: offset,
       limit: pageSize,
-      include: Media
+      include: Media,
+      //logging: console.log
     });
 
     // count total number of records from kalam table

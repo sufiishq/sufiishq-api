@@ -55,12 +55,15 @@ Occasion.init({
   timestamps: false
 })
 
-Occasion.hasMany(Media)
+Occasion.hasMany(Media, {
+  foreignKey: 'holderId',
+  onDelete: 'CASCADE'
+})
 Media.belongsTo(Occasion, {
-  foreignKey: 'occasionId'
+  foreignKey: 'holderId',
+  onDelete: 'CASCADE'
 })
 
 //Occasion.sync()
-
 
 module.exports = Occasion
