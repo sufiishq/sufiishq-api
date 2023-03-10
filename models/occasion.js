@@ -12,6 +12,16 @@ Occasion.init({
     autoIncrement: true,
     primaryKey: true
   },
+  uuid: {
+    type: DataTypes.UUID,
+    defaultValue: DataTypes.UUIDV4,
+    unique: true,
+    allowNull: false
+  },
+  cover: {
+    type: DataTypes.STRING(255),
+    allowNull: false
+  },
   title: {
     type: DataTypes.STRING(255),
     allowNull: false
@@ -52,18 +62,17 @@ Occasion.init({
   sequelize,
   modelName: 'Occasion',
   tableName: 'occasion',
-  timestamps: false
+  timestamps: false,
+  logging: console.log
 })
 
 Occasion.hasMany(Media, {
-  foreignKey: 'holderId',
-  onDelete: 'CASCADE'
+  as: 'media',
+  foreignKey: 'referenceId',
 })
-Media.belongsTo(Occasion, {
-  foreignKey: 'holderId',
-  onDelete: 'CASCADE'
-})
-
+/*
+Media.belongsTo(Occasion)
+*/
 //Occasion.sync()
 
 module.exports = Occasion

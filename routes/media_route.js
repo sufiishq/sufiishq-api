@@ -1,11 +1,12 @@
 const { Op } = require('sequelize')
+
 const Media = require('../models/media')
 const Joi = require('joi')
 const express = require('express')
 const router = express.Router()
 
 const validation = Joi.object({
-  holderId: Joi.number().min(0).required()
+  referenceId: Joi.string().required()
 })
 
 router.get('/', async function(req, res) {
@@ -15,18 +16,16 @@ router.get('/', async function(req, res) {
     const value = await validation.validateAsync(req.query)
 
     const whereClause = {
-      holderId: {
-        [Op.eq]: value.holderId
+      referenceId: {
+        [Op.eq]: value.referenceId
       }
     }
 
-    // query the kalam table find all the record by matching the given criteria
     let media = await Media.findAll({
       where: whereClause,
       //logging: console.log
     });
 
-    // count total number of records from kalam table
     const totalRecord = await Media.count({where: whereClause})
 
     // prepare result object

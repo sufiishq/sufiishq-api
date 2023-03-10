@@ -1,4 +1,5 @@
 const { Op } = require('sequelize')
+const sequelize = require('sequelize')
 const Occasion = require('../models/occasion')
 const Media = require('../models/media')
 const Joi = require('joi')
@@ -44,7 +45,6 @@ router.get('/', async function(req, res) {
       }
     }
 
-    // query the kalam table find all the record by matching the given criteria
     let occasions = await Occasion.findAll({
       where: whereClause,
       order:[
@@ -52,11 +52,20 @@ router.get('/', async function(req, res) {
       ],
       offset: offset,
       limit: pageSize,
-      include: Media,
+      include: [
+        {
+          model: Media,
+          as: 'media',
+          on: {
+            'referenceId': {
+              [Op.eq]: sequelize.col('Occasion.uuid')
+            }
+          }
+        }
+      ],
       //logging: console.log
     });
 
-    // count total number of records from kalam table
     const totalRecord = await Occasion.count({where: whereClause})
 
     // prepare result object
