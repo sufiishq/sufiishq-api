@@ -21,12 +21,12 @@ Events.init({
     type: DataTypes.STRING(255),
     allowNull: false
   },
-  date: {
-    type: DataTypes.STRING(5),
-    allowNull: false,
-  },
   hijriDate: {
     type: DataTypes.STRING(50),
+    allowNull: false
+  },
+  hijriMonthAndDay: {
+    type: DataTypes.STRING(5),
     allowNull: false
   }
 }, {
